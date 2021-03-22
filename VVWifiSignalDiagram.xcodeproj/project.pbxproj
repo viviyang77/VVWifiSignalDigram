@@ -8,22 +8,26 @@
 
 /* Begin PBXBuildFile section */
 		444F9E45260898C800C35FDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444F9E44260898C800C35FDB /* AppDelegate.swift */; };
-		444F9E47260898C800C35FDB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444F9E46260898C800C35FDB /* SceneDelegate.swift */; };
 		444F9E49260898C800C35FDB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444F9E48260898C800C35FDB /* ViewController.swift */; };
 		444F9E4C260898C800C35FDB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 444F9E4A260898C800C35FDB /* Main.storyboard */; };
 		444F9E4E260898CA00C35FDB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 444F9E4D260898CA00C35FDB /* Assets.xcassets */; };
 		444F9E51260898CA00C35FDB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 444F9E4F260898CA00C35FDB /* LaunchScreen.storyboard */; };
+		444F9E5D26089A0C00C35FDB /* WifiSSIDModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444F9E5C26089A0C00C35FDB /* WifiSSIDModel.swift */; };
+		444F9E6026089A2B00C35FDB /* WifiSignalDiagram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444F9E5F26089A2B00C35FDB /* WifiSignalDiagram.swift */; };
+		444F9E6326089A5000C35FDB /* ChannelCoordinateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444F9E6226089A5000C35FDB /* ChannelCoordinateConverter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		444F9E41260898C800C35FDB /* VVWIfiSignalDiagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VVWIfiSignalDiagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		444F9E44260898C800C35FDB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		444F9E46260898C800C35FDB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		444F9E48260898C800C35FDB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		444F9E4B260898C800C35FDB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		444F9E4D260898CA00C35FDB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		444F9E50260898CA00C35FDB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		444F9E52260898CA00C35FDB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		444F9E5C26089A0C00C35FDB /* WifiSSIDModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WifiSSIDModel.swift; sourceTree = "<group>"; };
+		444F9E5F26089A2B00C35FDB /* WifiSignalDiagram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WifiSignalDiagram.swift; sourceTree = "<group>"; };
+		444F9E6226089A5000C35FDB /* ChannelCoordinateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelCoordinateConverter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,14 +61,32 @@
 			isa = PBXGroup;
 			children = (
 				444F9E44260898C800C35FDB /* AppDelegate.swift */,
-				444F9E46260898C800C35FDB /* SceneDelegate.swift */,
-				444F9E48260898C800C35FDB /* ViewController.swift */,
-				444F9E4A260898C800C35FDB /* Main.storyboard */,
+				444F9E6726089AD500C35FDB /* Sample */,
+				444F9E6826089AF000C35FDB /* New Group */,
 				444F9E4D260898CA00C35FDB /* Assets.xcassets */,
 				444F9E4F260898CA00C35FDB /* LaunchScreen.storyboard */,
 				444F9E52260898CA00C35FDB /* Info.plist */,
 			);
 			path = VVWIfiSignalDiagram;
+			sourceTree = "<group>";
+		};
+		444F9E6726089AD500C35FDB /* Sample */ = {
+			isa = PBXGroup;
+			children = (
+				444F9E48260898C800C35FDB /* ViewController.swift */,
+				444F9E4A260898C800C35FDB /* Main.storyboard */,
+			);
+			path = Sample;
+			sourceTree = "<group>";
+		};
+		444F9E6826089AF000C35FDB /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+				444F9E5C26089A0C00C35FDB /* WifiSSIDModel.swift */,
+				444F9E5F26089A2B00C35FDB /* WifiSignalDiagram.swift */,
+				444F9E6226089A5000C35FDB /* ChannelCoordinateConverter.swift */,
+			);
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,9 +159,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				444F9E6026089A2B00C35FDB /* WifiSignalDiagram.swift in Sources */,
+				444F9E5D26089A0C00C35FDB /* WifiSSIDModel.swift in Sources */,
 				444F9E49260898C800C35FDB /* ViewController.swift in Sources */,
 				444F9E45260898C800C35FDB /* AppDelegate.swift in Sources */,
-				444F9E47260898C800C35FDB /* SceneDelegate.swift in Sources */,
+				444F9E6326089A5000C35FDB /* ChannelCoordinateConverter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,6 +313,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 787AZMF5KM;
 				INFOPLIST_FILE = VVWIfiSignalDiagram/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -296,7 +321,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = cc.viviyang.VVWIfiSignalDiagram;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -308,6 +333,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 787AZMF5KM;
 				INFOPLIST_FILE = VVWIfiSignalDiagram/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -315,7 +341,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = cc.viviyang.VVWIfiSignalDiagram;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
