@@ -1,6 +1,6 @@
 //
 //  ChannelCoordinateConverter.swift
-//  VVWIfiSignalDiagram
+//  VVWifiSignalDiagram
 //
 //  Created by Vivi on 2021/3/22.
 //

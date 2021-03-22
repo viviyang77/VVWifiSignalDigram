@@ -1,13 +1,13 @@
 //
 //  WifiSignalDiagram.swift
-//  VVWIfiSignalDiagram
+//  VVWifiSignalDiagram
 //
 //  Created by Vivi on 2021/3/22.
 //
 
 import UIKit
 
-extension RadioBandType {
+private extension RadioBandType {
     var diagramTitle: String {
         var title = "Wifi Signal Diagram "
         switch self {
