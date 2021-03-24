@@ -13,6 +13,7 @@ class ViewController: UIViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "VVWifiSignalDigram Sample"
         tableView.reloadData()
     }
 }
@@ -43,7 +44,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let vc = storyboard.instantiateViewController(withIdentifier: String(describing: TestDiagramViewController.self)) as? TestDiagramViewController else { return }
+        guard let vc = storyboard.instantiateViewController(withIdentifier: String(describing: TestDiagramViewController.self))
+                as? TestDiagramViewController
+        else { return }
         
         switch indexPath.row {
         case 0: vc.type = .twoGHz
