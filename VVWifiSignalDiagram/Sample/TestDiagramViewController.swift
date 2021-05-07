@@ -19,21 +19,21 @@ private extension RadioBandType {
         switch self {
         case .twoGHz:
             return [
-                WifiSSIDModel(ssid: "TELUS1087", channel: "1", signal: "-85"),
-                WifiSSIDModel(ssid: "DIRECT roku 894", channel: "6", signal: "-65"),
-                WifiSSIDModel(ssid: "TELUS2410", channel: "6", signal: "-83"),
-                WifiSSIDModel(ssid: "Mikeandcath", channel: "6", signal: "-92"),
-                WifiSSIDModel(ssid: "TELUS1146", channel: "11", signal: "-81"),
-                WifiSSIDModel(ssid: "Boomer", channel:"11", signal: "-91")
+                WifiSSIDModel(ssid: "TELUS1087", channel: "1", signal: "-85", bandwidth: "40"),
+                WifiSSIDModel(ssid: "DIRECT roku 894", channel: "6", signal: "-65", bandwidth: "20"),
+                WifiSSIDModel(ssid: "TELUS2410", channel: "6", signal: "-83", bandwidth: "40"),
+                WifiSSIDModel(ssid: "Mikeandcath", channel: "6", signal: "-92", bandwidth: "40"),
+                WifiSSIDModel(ssid: "TELUS1146", channel: "11", signal: "-81", bandwidth: "20"),
+                WifiSSIDModel(ssid: "Boomer", channel:"13", signal: "-91", bandwidth: "40")
             ]
         case .fiveGHz:
             return [
-                WifiSSIDModel(ssid: "CSC", channel: "36", signal: "-88"),
-                WifiSSIDModel(ssid: "Hidden SSID", channel: "64", signal: "-89"),
-                WifiSSIDModel(ssid: "guest", channel: "100", signal: "-72"),
-                WifiSSIDModel(ssid: "AIR190", channel: "112", signal: "-60"),
-                WifiSSIDModel(ssid: "bkguest", channel: "136", signal: "-75"),
-                WifiSSIDModel(ssid: "sym", channel:"157", signal: "-71")
+                WifiSSIDModel(ssid: "CSC", channel: "36", signal: "-88", bandwidth: "80"),
+                WifiSSIDModel(ssid: "Hidden SSID", channel: "64", signal: "-89", bandwidth: "160"),
+                WifiSSIDModel(ssid: "guest", channel: "100", signal: "-72", bandwidth: "160"),
+                WifiSSIDModel(ssid: "AIR190", channel: "112", signal: "-60", bandwidth: "20"),
+                WifiSSIDModel(ssid: "bkguest", channel: "136", signal: "-75", bandwidth: "40"),
+                WifiSSIDModel(ssid: "sym", channel:"157", signal: "-71", bandwidth: "160")
             ]
         }
     }
@@ -51,7 +51,7 @@ class TestDiagramViewController: UIViewController {
 
         title = type.title
         drawDiagramOnCanvasView()
-        drawDiagramOnScrollView(widthMultiplier: 1.5)
+        drawDiagramOnScrollView(widthMultiplier: type == .twoGHz ? 1.5 : 2)
     }
     
     private func drawDiagramOnCanvasView() {

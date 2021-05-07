@@ -29,60 +29,101 @@ enum RadioBandType {
     case fiveGHz    // 5GHz
 }
 
+struct XCoordinates {
+    let minX: Double
+    let midX: Double
+    let maxX: Double
+}
+
+enum YAxisMaxValue {
+    case zero
+    case negativeTen
+    case negativeTwenty
+    
+    var maxIndex: Int {
+        switch self {
+        case .zero: return 10   // 0 to -100
+        case .negativeTen: return 9 // -10 to -100
+        case .negativeTwenty: return 8  // -20 to -100
+        }
+    }
+    
+    var displayedNumbers: [String] {
+        var offset: Int
+        switch self {
+        case .zero: offset = 0
+        case .negativeTen: offset = -10
+        case .negativeTwenty: offset = -20
+        }
+         
+        var numbers = Array(0 ... maxIndex).map { "\($0 * -10 + offset)" }
+        numbers.removeLast()    // Remove the last -100
+        return numbers
+    }
+}
+
 /// Converts channel into coordinates in CALayer coorninate system (origin at the very top-left corner)
 class ChannelCoordinateConverter {
     
     static let fiveGHzGapChannel = -1
 
     var radioBandType: RadioBandType = .twoGHz
+    var yAxisMaxValue: YAxisMaxValue = .zero
     
     init(type: RadioBandType) {
         radioBandType = type
     }
     
-    func midXCoordinate(channel: Int) -> Double {
+    
+    
+    func xCoordinates(channel: Int, bandwidth: Double) -> XCoordinates {
+        var minX: Double = 0
+        var midX: Double = 0
+        var maxX: Double = 0
+        
         switch radioBandType {
         case .twoGHz:
-            if channel == 14 {
-                return 12 + (Double(channel) - 2) * 5 + 12
-            } else {
-                return 12 + (Double(channel) - 1) * 5
-            }
+            midX = Double(22 + (channel - 1) * 5)
+            minX = midX - bandwidth / 2
+            maxX = midX + bandwidth / 2
         case .fiveGHz:
             if channel == ChannelCoordinateConverter.fiveGHzGapChannel {
-                return 10
-            } else if channel <= 64 + 2 {
-                return 0.25 * Double(channel) - 7
-            } else if channel > 64 + 2, channel <= 132 + 2 {
-                return 0.0625 * Double(channel) + 4.75
+                minX = 48
+                midX = 48
+                maxX = 48
+            } else if channel <= 64 {
+                midX = Double(channel - 20)
+                minX = Double(channel - Int(bandwidth) / 10 - 20)
+                maxX = Double(channel + Int(bandwidth) / 10 - 20)
             } else {
-                return 0.0625 * Double(channel) + 4.6875
+                midX = Double(channel - 48)
+                minX = Double(channel - Int(bandwidth) / 10 - 48)
+                maxX = Double(channel + Int(bandwidth) / 10 - 48)
             }
         }
-    }
-    
-    func minXCoordinate(channel: Int) -> Double {
-        switch radioBandType {
-        case .twoGHz:  return midXCoordinate(channel: channel) - 11.0
-        case .fiveGHz: return midXCoordinate(channel: channel - 2)
-        }
-    }
-    
-    func maxXCoordinate(channel: Int) -> Double {
-        switch radioBandType {
-        case .twoGHz:  return midXCoordinate(channel: channel) + 11.0
-        case .fiveGHz: return midXCoordinate(channel: channel + 2)
-        }
+        return XCoordinates(minX: minX, midX: midX, maxX: maxX)
     }
     
     func yCoordinate(signal: Double) -> Double {
-        return (signal + 20) / -10
+        switch yAxisMaxValue {
+        case .zero: return signal * -1 / 10
+        case .negativeTen: return (signal * -1 - 10) / 10
+        case .negativeTwenty: return (signal * -1 - 20) / 10
+        }
     }
     
-    func coordinates(channel: Int, signal: Double) -> CurveCoordinates {
-        return CurveCoordinates(startPoint: CGPoint(x: minXCoordinate(channel: channel), y: 8),
-                           midPoint: CGPoint(x: midXCoordinate(channel: channel), y: yCoordinate(signal: signal)),
-                           endPoint: CGPoint(x: maxXCoordinate(channel: channel), y: 8))
+    func coordinates(channel: Int, signal: Double, bandwidth: Double) -> CurveCoordinates {
+        let maxYIndex = Double(yAxisMaxValue.maxIndex)
+        let xValues = xCoordinates(channel: channel, bandwidth: bandwidth)
+        let coord = CurveCoordinates(
+            startPoint: CGPoint(x: xValues.minX,
+                                y: maxYIndex),
+            midPoint: CGPoint(x: xValues.midX,
+                              y: yCoordinate(signal: signal)),
+            endPoint: CGPoint(x: xValues.maxX,
+                              y: maxYIndex)
+        )
+        return coord
     }
 }
 

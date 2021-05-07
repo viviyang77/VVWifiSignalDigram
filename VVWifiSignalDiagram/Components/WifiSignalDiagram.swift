@@ -27,17 +27,21 @@ private extension RadioBandType {
     var channels: [Int] {
         switch self {
         case .twoGHz:
-            return Array(1 ... 14)
+            return Array(1 ... 13)
         case .fiveGHz:
-            return [36, 40, 44, 48, 52, 56, 60, 64, ChannelCoordinateConverter.fiveGHzGapChannel, 100, 116, 132, 149, 165]
+            let fiveGHzChannelsPart1 = Array(36...64).filter { $0 % 4 == 0 }
+            let fiveGHzChannelsPart2 = Array(100...140).filter { $0 % 4 == 0 }
+            let fiveGHzChannelsPart3 = Array(149...161).filter { ($0 - 1) % 4 == 0 }
+            let fiveGHzChannels: [Int] = fiveGHzChannelsPart1 + fiveGHzChannelsPart2 + fiveGHzChannelsPart3
+            return fiveGHzChannels
         }
     }
     
     /// x-axis total index plus margin
     var maxXIndex: Int {
         switch self {
-        case .twoGHz: return 95 + 5
-        case .fiveGHz: return 15 + 1
+        case .twoGHz: return 102 + 5
+        case .fiveGHz: return 129 + 1
         }
     }
 }
@@ -46,11 +50,14 @@ private extension RadioBandType {
 class WifiSignalDiagram: UIView {
     
     var radioBandType: RadioBandType = .twoGHz
-
+    private var yAxisMaxValue: YAxisMaxValue = .zero    // Y axis starts from 0 from the top
+    
     private lazy var title = radioBandType.diagramTitle
     private var xAxisTitle = "Wifi Channels"
     private var yAxisTitle = "Signal Strength [dBm]"
+    
     private var data: [WifiSSIDModel] = []
+    
     private var diagramColors: [UIColor] = [.red, .green, .blue, .gray, .orange, .cyan, .brown, .purple, .magenta]
     private var textColor: UIColor = .white
     private var titleFontSize: CGFloat = 12
@@ -76,7 +83,7 @@ class WifiSignalDiagram: UIView {
     private lazy var channels = radioBandType.channels
     
     private lazy var maxXIndex = radioBandType.maxXIndex
-    private lazy var maxYIndex: Int = 8     // y-axis total index = 8 (signal: -100 to -20)
+    private lazy var maxYIndex: Int = yAxisMaxValue.maxIndex
     
     private lazy var converter = ChannelCoordinateConverter(type: radioBandType)
 
@@ -186,8 +193,8 @@ class WifiSignalDiagram: UIView {
     private func drawXLabels() {
         let labels = channels
         
-        // Labels should be centered horizontally with its corresponding channel
-        let labelMidXs = labels.map { CGFloat(converter.midXCoordinate(channel: $0)) * xMultiplier }
+        // Labels should be centered horizontally with its corresponding channel        
+        let labelMidXs = labels.map { CGFloat(converter.xCoordinates(channel: $0, bandwidth: 20).midX) * xMultiplier }
         let labelY = diagramHeight + innerMargin
         
         for (index, label) in labels.enumerated() {
@@ -207,11 +214,11 @@ class WifiSignalDiagram: UIView {
     
     private func drawYLabels() {
         // We do not show the last label
-        let labels = Array(1 ... maxYIndex).reversed().map { "\(($0 - 10) * 10)" }
+        let labels = yAxisMaxValue.displayedNumbers
         let width = yAxisLabelWidth
         let height = labelHeight
         let x = -innerMargin - width
-        let yPositions = Array(1 ... maxYIndex).map { CGFloat($0 - 1) * yMultiplier - height / 2 }
+        let yPositions = Array(0 ... maxYIndex-1).map { CGFloat($0) * yMultiplier - height / 2 }
 
         for (index, label) in labels.enumerated() {
             drawText("\(label)",
@@ -285,7 +292,8 @@ class WifiSignalDiagram: UIView {
     
     private func drawArc(data: WifiSSIDModel, color: UIColor = .blue) {
         let coordinates = converter.coordinates(channel: data.channelAsInt,
-                                                signal: data.signalAsDouble)
+                                                signal: data.signalAsDouble,
+                                                bandwidth: data.bandwidthAsDouble)
         let appliedMultiplier = coordinates.applyMultiplier(xMultiplier: xMultiplier, yMultiplier: yMultiplier)
         let path = UIBezierPath()
         path.move(to: appliedMultiplier.startPoint)
