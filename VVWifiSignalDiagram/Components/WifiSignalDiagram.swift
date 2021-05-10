@@ -259,7 +259,7 @@ class WifiSignalDiagram: UIView {
         shapeLayer.lineWidth = 0.5
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.lineDashPattern = [3, 3]
-        
+        shapeLayer.applyScreenScale()
         layer.addSublayer(shapeLayer)
     }
     
@@ -310,6 +310,7 @@ class WifiSignalDiagram: UIView {
         shapeLayer.strokeColor = color.cgColor
         shapeLayer.lineWidth = 1.5
         shapeLayer.fillColor = color.withAlphaComponent(0.2).cgColor
+        shapeLayer.applyScreenScale()
         layer.addSublayer(shapeLayer)
         
         // Add text
@@ -338,7 +339,7 @@ class WifiSignalDiagram: UIView {
         shapeLayer.strokeColor = textColor.cgColor
         shapeLayer.lineWidth = 1
         shapeLayer.fillColor = UIColor.clear.cgColor
-        
+        shapeLayer.applyScreenScale()
         layer.addSublayer(shapeLayer)
     }
 }
@@ -354,6 +355,7 @@ extension WifiSignalDiagram {
         textLayer.backgroundColor = UIColor.clear.cgColor
         textLayer.alignmentMode = .center
         textLayer.string = title
+        textLayer.applyScreenScale()
         return textLayer
     }
     
@@ -365,6 +367,7 @@ extension WifiSignalDiagram {
         textLayer.alignmentMode = .center
         textLayer.string = string
         textLayer.frame = frame
+        textLayer.applyScreenScale()
         layer.addSublayer(textLayer)
     }
 }

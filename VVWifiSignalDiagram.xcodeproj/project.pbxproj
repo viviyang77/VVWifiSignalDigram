@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4411D6272648E8B700F602D3 /* CALayer+ApplyScreenScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4411D6262648E8B700F602D3 /* CALayer+ApplyScreenScale.swift */; };
 		444F9E45260898C800C35FDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444F9E44260898C800C35FDB /* AppDelegate.swift */; };
 		444F9E49260898C800C35FDB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444F9E48260898C800C35FDB /* ViewController.swift */; };
 		444F9E4C260898C800C35FDB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 444F9E4A260898C800C35FDB /* Main.storyboard */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4411D6262648E8B700F602D3 /* CALayer+ApplyScreenScale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+ApplyScreenScale.swift"; sourceTree = "<group>"; };
 		444F9E41260898C800C35FDB /* VVWifiSignalDiagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VVWifiSignalDiagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		444F9E44260898C800C35FDB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		444F9E48260898C800C35FDB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 				444F9E7226089BBF00C35FDB /* WifiSSIDModel.swift */,
 				444F9E7326089BBF00C35FDB /* WifiSignalDiagram.swift */,
 				444F9E7426089BBF00C35FDB /* ChannelCoordinateConverter.swift */,
+				4411D6262648E8B700F602D3 /* CALayer+ApplyScreenScale.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -167,6 +170,7 @@
 				444F9E7A26089BE500C35FDB /* TestDiagramViewController.swift in Sources */,
 				444F9E49260898C800C35FDB /* ViewController.swift in Sources */,
 				444F9E45260898C800C35FDB /* AppDelegate.swift in Sources */,
+				4411D6272648E8B700F602D3 /* CALayer+ApplyScreenScale.swift in Sources */,
 				444F9E7726089BBF00C35FDB /* ChannelCoordinateConverter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -74,8 +74,6 @@ class ChannelCoordinateConverter {
         radioBandType = type
     }
     
-    
-    
     func xCoordinates(channel: Int, bandwidth: Double) -> XCoordinates {
         var minX: Double = 0
         var midX: Double = 0
